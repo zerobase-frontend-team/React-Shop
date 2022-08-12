@@ -1,6 +1,7 @@
 import fashionImage from '../assets/carousel/fashion.jpeg';
 import digitalImage from '../assets/carousel/digital.jpeg';
 import foodImage from '../assets/carousel/food.jpeg';
+import { useEffect } from 'react';
 
 const slideNumber = 3;
 
@@ -25,7 +26,7 @@ function Slide({ id, title, content, image }: SlideData) {
         <a href={`#slide${prev}`} className="btn btn-circle">
           ❮
         </a>
-        <a href={`#slide${next}`} className="btn btn-circle">
+        <a href={`#slide${next}`} className="btn btn-circle" id="next-button">
           ❯
         </a>
       </div>
@@ -45,6 +46,23 @@ function Slide({ id, title, content, image }: SlideData) {
 }
 
 function Carousel() {
+  // 슬라이드 자동으로 움직이게 하기
+  useEffect(() => {
+    let id = 0;
+    setInterval(() => {
+      const $nextButtons = document.querySelectorAll('#next-button');
+      if ($nextButtons) {
+        const $nextButton = $nextButtons[id] as HTMLAnchorElement;
+        $nextButton.click();
+        if (id === slideNumber - 1) {
+          id = 0;
+        } else {
+          id++;
+        }
+      }
+    }, 3000);
+  }, []);
+
   return (
     <div id="wrapper" className="relative">
       <div className="carousel w-full">
