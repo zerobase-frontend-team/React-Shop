@@ -1,10 +1,10 @@
-import darkThemeButton from '../assets/dark.svg';
-import lightThemeButton from '../assets/light.svg';
+import darkThemeButton from '../assets/theme-icon/dark.svg';
+import lightThemeButton from '../assets/theme-icon/light.svg';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState<string>('light');
 
   function changeTheme(): void {
     switch (theme) {
@@ -20,8 +20,9 @@ function Header() {
   }
 
   return (
-    <nav className="navbar" data-theme={theme}>
-      <div className="dropdown md:hidden">
+    <nav className="navbar fixed top-0 z-10" data-theme={theme}>
+      {/* 축소 시 생기는 버튼, 드랍다운으로 카테고리를 선택할 수 있습니다. */}
+      <div className="dropdown md:hidden" id="category_drop-down">
         <label tabIndex={0} className="btn btn-ghost btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,12 +54,14 @@ function Header() {
           </li>
         </ul>
       </div>
-      <div className="flex-none">
+      {/* 로고 */}
+      <div className="flex-none" id="logo">
         <Link to="/" className="btn btn-ghost normal-case text-xl">
           React Shop
         </Link>
       </div>
-      <div className="flex-none hidden md:block">
+      {/* 카테고리 */}
+      <div className="flex-none hidden md:block" id="category">
         <ul className="menu menu-horizontal p-0">
           <li>
             <Link to="/fashion">패션</Link>
@@ -71,8 +74,10 @@ function Header() {
           </li>
         </ul>
       </div>
-      <div className="space grow"></div>
-      <div className="theme-mode mr-5 cursor-pointer flex-none">
+      {/* 빈 공간 */}
+      <div className="grow" id="space"></div>
+      {/* 테마 선택 */}
+      <div className="mr-5 cursor-pointer flex-none" id="theme">
         {theme === 'light' ? (
           <img
             src={darkThemeButton}
@@ -89,12 +94,15 @@ function Header() {
           />
         )}
       </div>
+      {/* 검색 */}
       <input
         type={'search'}
         placeholder="검색"
         className="input input-bordered w-full max-w-xs"
+        id="search"
       />
-      <label tabIndex={0} className="btn btn-ghost btn-circle">
+      {/* 장바구니 */}
+      <label tabIndex={0} className="btn btn-ghost btn-circle" id="cart">
         <div className="indicator">
           <svg
             xmlns="http://www.w3.org/2000/svg"
