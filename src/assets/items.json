@@ -1,0 +1,139 @@
+{
+  "data": {
+    "4ae7e0e2-526c-4df3-88d8-9b6e5de795ac": {
+      "category": "fashion",
+      "imageName": "1",
+      "itemName": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+      "cost": "110"
+    },
+    "12a77700-f1a5-403f-97ad-e11b1a94df01": {
+      "category": "fashion",
+      "imageName": "2",
+      "itemName": "Mens Casual Premium Slim Fit T-Shirts",
+      "cost": "22"
+    },
+    "4fca75dc-c4ef-447f-8e83-3321baf0791f": {
+      "category": "fashion",
+      "imageName": "3",
+      "itemName": "Mens Cotton Jacket",
+      "cost": "56"
+    },
+
+    "7c227ee2-c53f-414a-ada6-80b77ef9f3b2": {
+      "category": "fashion",
+      "imageName": "4",
+      "itemName": "Mens Casual Slim Fit",
+      "cost": "16"
+    },
+    "2H8XzkRMV71DXOmU2LRR": {
+      "category": "fashion",
+      "imageName": "5",
+      "itemName": "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
+      "cost": "57"
+    },
+
+    "7AemTggcuzfcWRmYnR8d": {
+      "category": "fashion",
+      "imageName": "6",
+      "itemName": "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
+      "cost": "30"
+    },
+
+    "8AemTggcuzfcWRmYnR8d": {
+      "category": "fashion",
+      "imageName": "7",
+      "itemName": "Rain Jacket Women Windbreaker Striped Climbing Raincoats",
+      "cost": "40"
+    },
+
+    "9AemTggcuzfcWRmYnR8d": {
+      "category": "fashion",
+      "imageName": "8",
+      "itemName": "MBJ Women's Solid Short Sleeve Boat Neck V",
+      "cost": "10"
+    },
+
+    "7AemTggcuzfcWRmYnR9d": {
+      "category": "fashion",
+      "imageName": "9",
+      "itemName": "Opna Women's Short Sleeve Moisture",
+      "cost": "8"
+    },
+
+    "7AemTggcuzfcWRmYnR8e": {
+      "category": "fashion",
+      "imageName": "10",
+      "itemName": "DANVOUY Womens T Shirt Casual Cotton Short",
+      "cost": "13"
+    },
+
+    "4ae7e0e2-526c-4df3-88d8-9b6e5de795af": {
+      "category": "accessory",
+      "imageName": "1",
+      "itemName": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+      "cost": "695"
+    },
+
+    "4ae7e0e2-526c-4df3-88d8-9b6e5de795ag": {
+      "category": "accessory",
+      "imageName": "2",
+      "itemName": "Solid Gold Petite Micropave",
+      "cost": "168"
+    },
+    "4ae7e0e2-526c-4df3-88d8-9b6e5de795ah": {
+      "category": "accessory",
+      "imageName": "3",
+      "itemName": "White Gold Plated Princess",
+      "cost": "10"
+    },
+
+    "4ae7e0e2-526c-4df3-88d8-9b6e5de795ai": {
+      "category": "accessory",
+      "imageName": "4",
+      "itemName": "Pierced Owl Rose Gold Plated Stainless Steel Double",
+      "cost": "11"
+    },
+
+    "5ae7e0e2-526c-4df3-88d8-9b6e5de795ai": {
+      "category": "digital",
+      "imageName": "1",
+      "itemName": "WD 2TB Elements Portable External Hard Drive - USB 3.0",
+      "cost": "64"
+    },
+
+    "5ae7e0e2-526c-4df3-88d8-9b6e5de795ah": {
+      "category": "digital",
+      "imageName": "2",
+      "itemName": "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
+      "cost": "109"
+    },
+
+    "5ae7e0e2-526c-4df3-88d8-9b6e5de795ap": {
+      "category": "digital",
+      "imageName": "3",
+      "itemName": "Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5",
+      "cost": "109"
+    },
+
+    "5ae7e0e2-526c-4df3-88d8-9b6e5de795aa": {
+      "category": "digital",
+      "imageName": "4",
+      "itemName": "WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive",
+      "cost": "114"
+    },
+
+    "5ae7e0e2-526c-4df3-88d8-9b6e5de795au": {
+      "category": "digital",
+      "imageName": "5",
+      "itemName": "Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin",
+      "cost": "599"
+    },
+
+    "5ae7e0e2-526c-4df3-88d8-9b6e5de795ao": {
+      "category": "digital",
+      "imageName": "6",
+      "itemName": "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED",
+      "cost": "1,000"
+    }
+  }
+}
