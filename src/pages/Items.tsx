@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { Navigate } from 'react-router-dom';
 import itemsJSON from '../assets/items.json';
 
@@ -62,23 +63,25 @@ function Items({ category = '', theme = 'dark' }) {
           >
             {items.map((el: any) => {
               return (
-                <a
-                  key={el.imageName}
-                  className="card card-bordered border-gray-200 dark:border-gray-800 card-compact lg:card-normal"
-                  href={`/product/${el.imageName}`}
-                >
-                  <figure className="flex h-80 bg-white overflow-hidden">
-                    <img
-                      src={`./${category}/${el.imageName}.jpg`}
-                      alt="상품 이미지"
-                      className="transition-transform duration-300"
-                    />
-                  </figure>
-                  <div className="card-body bg-gray-100 dark:bg-gray-700">
-                    <p className="card-title text-base">{el.itemName}</p>
-                    <p className="text-base">{`$${el.cost}`}</p>
-                  </div>
-                </a>
+                <Wrapper>
+                  <a
+                    key={el.imageName}
+                    className="card card-bordered border-gray-200 dark:border-gray-800 card-compact lg:card-normal"
+                    href={`/product/${el.imageName}`}
+                  >
+                    <figure className="flex h-80 bg-white overflow-hidden">
+                      <img
+                        src={`./${category}/${el.imageName}.jpg`}
+                        alt="상품 이미지"
+                        className="transition-transform duration-300"
+                      />
+                    </figure>
+                    <div className="card-body h-40 bg-gray-100 dark:bg-gray-700">
+                      <p className="card-title text-base">{el.itemName}</p>
+                      <p className="text-base">{`$${el.cost}`}</p>
+                    </div>
+                  </a>
+                </Wrapper>
               );
             })}
           </div>
@@ -87,5 +90,27 @@ function Items({ category = '', theme = 'dark' }) {
     </section>
   );
 }
+
+const Wrapper = styled.div`
+  .card figure img {
+    max-height: 50%;
+    max-width: 50%;
+  }
+
+  .duration-300 {
+    transition-duration: 0.3s;
+  }
+
+  .transition-transform {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover {
+    img {
+      transform: scale(120%);
+    }
+  }
+`;
 
 export default Items;
