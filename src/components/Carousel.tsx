@@ -2,6 +2,7 @@ import fashionImage from '../assets/carousel/fashion.jpeg';
 import digitalImage from '../assets/carousel/digital.jpeg';
 import foodImage from '../assets/carousel/food.jpeg';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const slideNumber = 3;
 
@@ -10,9 +11,10 @@ interface SlideData {
   title: string;
   content: string;
   image: string;
+  path: string;
 }
 
-function Slide({ id, title, content, image }: SlideData) {
+function Slide({ id, title, content, image, path }: SlideData) {
   const prev = id === 1 ? slideNumber : id - 1;
   const next = id === slideNumber ? 1 : id + 1;
 
@@ -36,7 +38,7 @@ function Slide({ id, title, content, image }: SlideData) {
             <h1 className="text-3xl md:text-5xl font-bold">{title}</h1>
             <p className="py-6">{content}</p>
             <button className="btn-sm md:btn-md btn-primary">
-              바로가기 &#8594;
+              <Link to={path}>바로가기 &#8594;</Link>
             </button>
           </div>
         </div>
@@ -52,12 +54,10 @@ function Carousel() {
     setInterval(() => {
       const $nextButtons = document.querySelectorAll('#next-button');
       if ($nextButtons) {
-        const $nextButton = $nextButtons[id] as HTMLAnchorElement;
-        $nextButton.click();
-        if (id === slideNumber - 1) {
-          id = 0;
-        } else {
-          id++;
+        const $nextButton = $nextButtons[id];
+        if ($nextButton instanceof HTMLAnchorElement) {
+          $nextButton.click();
+          id = id < slideNumber - 1 ? ++id : 0;
         }
       }
     }, 3000);
@@ -71,18 +71,21 @@ function Carousel() {
           title={'물빠진 청바지!'}
           content={'이제 막 도착한 패션 청바지를 구경해 보세요.'}
           image={fashionImage}
+          path={'fashion'}
         />
         <Slide
           id={2}
           title={'신속한 업무처리!'}
           content={'다양한 디지털 상품을 둘러보세요.'}
           image={digitalImage}
+          path={'digital'}
         />
         <Slide
           id={3}
           title={'신선한 식품!'}
           content={'농장 직배송으로 더욱 신선한 식료품을 만나보세요.'}
           image={foodImage}
+          path={'food'}
         />
       </div>
       <div className="flex md:hidden justify-center w-full py-2 gap-2 absolute bottom-4 left-1/2 -translate-x-1/2">
