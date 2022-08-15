@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 interface ProductData {
   id: number;
@@ -36,7 +37,15 @@ function ProductList({ page, category }: { page: string; category: string }) {
   const productListComp = useRef<HTMLDivElement>(null);
   const productContainer = useRef<HTMLDivElement>(null);
 
-  const [productData, setProductData] = useState<ProductData[]>([]);
+  interface State {
+    productStore: {
+      [key: string]: ProductData[];
+    };
+  }
+
+  const productData = useSelector(
+    (state: State) => state.productStore[category],
+  );
 
   // 홈페이지와 카테고리 페이지의 css 구분하기
   useEffect(() => {
@@ -48,44 +57,10 @@ function ProductList({ page, category }: { page: string; category: string }) {
     }
   }, []);
 
-  const categoryURLs: { [key: string]: string[] } = {
-    fashion: ["men's clothing", "women's clothing"],
-    accessory: ['jewelery'],
-    digital: ['electronics'],
-  };
-
-  let clothing: ProductData[] = [];
-
-  // 자료 가져와서 뿌리기
-  useEffect(() => {
-    async function fetchProducts(url: string) {
-      const fullURL = 'https://fakestoreapi.com/products/category/' + url;
-      const response = await fetch(fullURL);
-      const data: ProductData[] = await response.json();
-      // 가져온 자료를 바탕으로 재랜더링
-      if (url === "men's clothing") {
-        clothing = [...data];
-      } else if (url === "women's clothing") {
-        clothing = [...clothing, ...data];
-        setProductData(clothing);
-      } else {
-        setProductData(data);
-      }
-    }
-
-    try {
-      categoryURLs[category].forEach((url) => {
-        fetchProducts(url);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-
   const categoryTitles: { [key: string]: string } = {
     fashion: '패션',
-    digital: '디지털',
     accessory: '액세서리',
+    digital: '디지털',
   };
 
   return (
@@ -103,11 +78,11 @@ function ProductList({ page, category }: { page: string; category: string }) {
           className="grid sm:w-full sm:grid-cols-2 md:grid-cols-4"
           ref={productContainer}
         >
-          {productData.map((productData, index) => {
+          {productData.map((productDatum, index) => {
             if (page === 'home' && index < 4) {
-              return <Product key={productData.id} data={productData} />;
+              return <Product key={productDatum.id} data={productDatum} />;
             } else if (page === 'category') {
-              return <Product key={productData.id} data={productData} />;
+              return <Product key={productDatum.id} data={productDatum} />;
             }
           })}
         </div>
