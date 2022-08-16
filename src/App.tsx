@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import productStore from './store/product';
+import { cartActions } from './store/cart';
 
 interface ProductData {
   id: number;
@@ -21,7 +22,8 @@ function App() {
     let fashion: ProductData[] = [];
     let accessory: ProductData[] = [];
     let digital: ProductData[] = [];
-    let search: { id: number; title: string }[] = [];
+    let search: { id: number; title: string; price: number; image: string }[] =
+      [];
 
     (async () => {
       const URL = 'https://fakestoreapi.com/products';
@@ -46,7 +48,12 @@ function App() {
             break;
         }
 
-        search.push({ id: product.id, title: product.title });
+        search.push({
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          image: product.image,
+        });
       });
 
       dispatch(productStore.actions.fetchFashion({ data: fashion }));

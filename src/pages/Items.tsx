@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link, Navigate, Route, Router, Routes } from 'react-router-dom';
 import itemsJSON from '../assets/items.json';
 import Product from './Product';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../store/cart';
 
 function Items({ category = '', theme = 'dark' }) {
   const [categoryName, setCategoryName] = useState('');
