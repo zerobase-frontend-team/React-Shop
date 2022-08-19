@@ -22,8 +22,13 @@ function App() {
     let fashion: ProductData[] = [];
     let accessory: ProductData[] = [];
     let digital: ProductData[] = [];
-    let search: { id: number; title: string; price: number; image: string }[] =
-      [];
+    let search: {
+      id: number;
+      title: string;
+      price: number;
+      image: string;
+      category: string;
+    }[] = [];
 
     (async () => {
       const URL = 'https://fakestoreapi.com/products';
@@ -53,6 +58,7 @@ function App() {
           title: product.title,
           price: product.price,
           image: product.image,
+          category: product.category,
         });
       });
 
