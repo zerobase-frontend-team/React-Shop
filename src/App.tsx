@@ -11,8 +11,13 @@ interface ProductData {
   id: number;
   title: string;
   price: number;
+  description: string;
   category: string;
   image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
 function App() {
@@ -22,8 +27,7 @@ function App() {
     let fashion: ProductData[] = [];
     let accessory: ProductData[] = [];
     let digital: ProductData[] = [];
-    let search: { id: number; title: string; price: number; image: string }[] =
-      [];
+    let all: ProductData[] = [];
 
     (async () => {
       const URL = 'https://fakestoreapi.com/products';
@@ -48,18 +52,13 @@ function App() {
             break;
         }
 
-        search.push({
-          id: product.id,
-          title: product.title,
-          price: product.price,
-          image: product.image,
-        });
+        all.push(product);
       });
 
       dispatch(productStore.actions.fetchFashion({ data: fashion }));
       dispatch(productStore.actions.fetchAccessory({ data: accessory }));
       dispatch(productStore.actions.fetchDigital({ data: digital }));
-      dispatch(productStore.actions.fetchSearch({ data: search }));
+      dispatch(productStore.actions.fetchAll({ data: all }));
     })();
   }, []);
 

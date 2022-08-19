@@ -6,7 +6,7 @@ const productStore = createSlice({
     fashion: [],
     accessory: [],
     digital: [],
-    search: [],
+    all: [],
   },
   reducers: {
     fetchFashion(state, action) {
@@ -18,8 +18,8 @@ const productStore = createSlice({
     fetchDigital(state, action) {
       state.digital = action.payload.data;
     },
-    fetchSearch(state, action) {
-      state.search = action.payload.data;
+    fetchAll(state, action) {
+      state.all = action.payload.data;
     },
   },
 });

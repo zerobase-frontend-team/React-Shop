@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import CartItems from './CartItems';
 
 function CartList() {
-  const products = useSelector((state: any) => state.productStore.search);
+  const products = useSelector((state: any) => state.productStore.all);
   const cartItems = useSelector((state: any) => state.cartStore.items);
 
   let items: any = [];
