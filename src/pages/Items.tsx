@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, Navigate, Route, Router, Routes } from 'react-router-dom';
-import itemsJSON from '../assets/items.json';
-import Product from './Product';
-import { useDispatch } from 'react-redux';
-import { cartActions } from '../store/cart';
+import { Link, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+interface ProductData {
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+  image: string;
+}
 
 function Items({ category = '', theme = 'dark' }) {
   const [categoryName, setCategoryName] = useState('');
   const [dataTheme, setDataTheme] = useState('dark');
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<ProductData[]>([]);
+
+  interface State {
+    productStore: {
+      [key: string]: ProductData[];
+    };
+  }
+
+  const productData = useSelector(
+    (state: State) => state.productStore[category],
+  );
 
   useEffect(() => {
     if (category === 'fashion') {
@@ -24,28 +39,8 @@ function Items({ category = '', theme = 'dark' }) {
   });
 
   useEffect(() => {
-    if (category === 'fashion') {
-      getItems('fashion');
-    } else if (category === 'digital') {
-      getItems('digital');
-    } else if (category === 'accessory') {
-      getItems('accessory');
-    }
+    setItems(productData);
   }, [categoryName]);
-
-  const getItems = (category: string) => {
-    let itemsArray: React.SetStateAction<never[]> = [];
-
-    const map = new Map(Object.entries(itemsJSON));
-    const data = new Map(Object.entries(map.get('data') || {}));
-
-    for (let value of data.values()) {
-      if (value.category === category) {
-        itemsArray.push(value as never);
-      }
-    }
-    setItems(itemsArray);
-  };
 
   return (
     <section className="main pt-16" data-theme={dataTheme}>
@@ -66,19 +61,19 @@ function Items({ category = '', theme = 'dark' }) {
           >
             {items.map((el: any) => {
               return (
-                <Wrapper key={el.imageName}>
-                  <Link to={`/product/${el.imageName}`}>
+                <Wrapper key={el.id}>
+                  <Link to={`/product/${el.id}`}>
                     <div className="card shadow-xl m-2">
                       <figure className="h-72 bg-white">
                         <img
-                          src={`./${category}/${el.imageName}.jpg`}
+                          src={el.image}
                           alt={el.title}
                           className="max-h-[70%] sm:w-1/2 hover:scale-110 ease-linear duration-200"
                         />
                       </figure>
                       <div className="card-body h-52">
-                        <h2 className="card-title text-base">{el.itemName}</h2>
-                        <p>${el.cost}</p>
+                        <h2 className="card-title text-base">{el.title}</h2>
+                        <p>${el.price}</p>
                       </div>
                     </div>
                   </Link>
