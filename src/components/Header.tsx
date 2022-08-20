@@ -1,12 +1,12 @@
 import darkThemeButton from '../assets/theme-icon/dark.svg';
 import lightThemeButton from '../assets/theme-icon/light.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartActions } from '../store/cart';
 
 function Header() {
   const [theme, setTheme] = useState<string>('light');
+  const dispatch = useDispatch();
 
   function changeTheme(): void {
     switch (theme) {
@@ -19,8 +19,6 @@ function Header() {
       default:
         break;
     }
-    // const dispatch = useDispatch();
-    // dispatch(cartActions.addCart({ id: 1, count: 2 }));
   }
 
   /**

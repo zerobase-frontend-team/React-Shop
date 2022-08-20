@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 interface ProductData {
   id: number;
@@ -23,9 +24,11 @@ interface State {
 }
 
 function Product() {
-  const id = getIdFromURL();
-  const productData = useSelector((state: State) => state.productStore.all[id]);
-  console.log(productData);
+  const params = useParams();
+  const id = Number(params.pid);
+  const productData = useSelector(
+    (state: any) => state.productStore.all[id - 1],
+  );
   const category = getCategory(productData.category);
   const title = productData.title;
   const description = productData.description;
@@ -34,8 +37,9 @@ function Product() {
   const count = productData.rating.count;
   const price = productData.price;
 
+
   return (
-    <section className="main pt-16">
+    <section className="main">
       <section className="pt-4 lg:pt-5 pb-4 lg:pb-8 px-4 xl:px-2 xl:container mx-auto">
         <StyleWrapper>
           <div className="text-sm breadcrumbs">
