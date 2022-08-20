@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -7,8 +8,13 @@ interface ProductData {
   id: number;
   title: string;
   price: number;
+  description: string;
   category: string;
   image: string;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
 interface State {
@@ -25,9 +31,12 @@ function Product() {
   );
   const category = getCategory(productData.category);
   const title = productData.title;
-  const description = productData;
+  const description = productData.description;
   const image = productData.image;
-  // console.log(productData);
+  const rate = productData.rating.rate;
+  const count = productData.rating.count;
+  const price = productData.price;
+
 
   return (
     <section className="main">
@@ -52,10 +61,20 @@ function Product() {
                 {title}
                 <span className="badge badge-accent ml-2">NEW</span>
               </h2>
-              <p></p>
-              <div></div>
-              <p></p>
-              <div></div>
+              <p>{description}</p>
+              <div className="flex items-center mt-3">
+                <div className="rating rating-half">{getRateStar(rate)}</div>
+                <div className="ml-2">
+                  {rate} / {count} 참여
+                </div>
+              </div>
+              <p className="mt-2 mb-4 text-3xl">${price}</p>
+              <div className="card-actions">
+                <button className="btn btn-primary">장바구니에 담기</button>
+                <Link className="btn btn-outline ml-1" to={'/cart'}>
+                  장바구니로 이동
+                </Link>
+              </div>
             </div>
           </div>
         </StyleWrapper>
@@ -90,6 +109,63 @@ const getCategory = (category: string) => {
       break;
   }
   return result;
+};
+
+const getRateStar = (rateNumber: number) => {
+  const stars = [];
+  let starCount = Math.floor(rateNumber * 2);
+
+  // 꽉 찬 별
+  for (let i = 0; i < starCount; i++) {
+    if (i % 2 === 0) {
+      stars.push(
+        <input
+          type="radio"
+          name="rating-10"
+          className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-1"
+          disabled
+          checked
+        />,
+      );
+    } else {
+      stars.push(
+        <input
+          type="radio"
+          name="rating-10"
+          className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-2"
+          disabled
+          checked
+        />,
+      );
+    }
+  }
+
+  // 빈 별
+  if (rateNumber < 5) {
+    for (let i = starCount; i < 10; i++) {
+      if (i % 2 === 0) {
+        stars.push(
+          <input
+            type="radio"
+            name="rating-10"
+            className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-1"
+            disabled
+          />,
+        );
+      } else {
+        stars.push(
+          <input
+            type="radio"
+            name="rating-10"
+            className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-2"
+            disabled
+          />,
+        );
+      }
+    }
+  }
+
+  return stars;
 };
 
 export default Product;
