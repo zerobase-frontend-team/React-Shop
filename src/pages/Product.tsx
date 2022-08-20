@@ -24,11 +24,13 @@ interface State {
 }
 
 function Product() {
+  const dataTheme = 'dark';
   const params = useParams();
   const id = Number(params.pid);
   const productData = useSelector(
     (state: any) => state.productStore.all[id - 1],
   );
+
   const category = getCategory(productData.category);
   const title = productData.title;
   const description = productData.description;
@@ -37,9 +39,8 @@ function Product() {
   const count = productData.rating.count;
   const price = productData.price;
 
-
   return (
-    <section className="main">
+    <section className="main" data-theme={dataTheme}>
       <section className="pt-4 lg:pt-5 pb-4 lg:pb-8 px-4 xl:px-2 xl:container mx-auto">
         <StyleWrapper>
           <div className="text-sm breadcrumbs">
@@ -120,6 +121,7 @@ const getRateStar = (rateNumber: number) => {
     if (i % 2 === 0) {
       stars.push(
         <input
+          key={i}
           type="radio"
           name="rating-10"
           className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-1"
@@ -130,6 +132,7 @@ const getRateStar = (rateNumber: number) => {
     } else {
       stars.push(
         <input
+          key={i}
           type="radio"
           name="rating-10"
           className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-2"
@@ -146,6 +149,7 @@ const getRateStar = (rateNumber: number) => {
       if (i % 2 === 0) {
         stars.push(
           <input
+            key={i}
             type="radio"
             name="rating-10"
             className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-1"
@@ -155,6 +159,7 @@ const getRateStar = (rateNumber: number) => {
       } else {
         stars.push(
           <input
+            key={i}
             type="radio"
             name="rating-10"
             className="bg-yellow-400 cursor-default mask mask-star-2 mask-half-2"

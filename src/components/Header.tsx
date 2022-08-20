@@ -3,6 +3,7 @@ import lightThemeButton from '../assets/theme-icon/light.svg';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Search from './Search';
 
 function Header() {
   const [theme, setTheme] = useState<string>('light');
@@ -31,7 +32,7 @@ function Header() {
   return (
     <nav className="navbar sticky top-0 z-10" data-theme={theme}>
       {/* 축소 시 생기는 버튼, 드랍다운으로 카테고리를 선택할 수 있습니다. */}
-      <div className="dropdown md:hidden" id="category_drop-down">
+      <div className="dropdown dropdown-end md:hidden" id="category_drop-down">
         <label tabIndex={0} className="btn btn-ghost btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -104,12 +105,7 @@ function Header() {
         )}
       </div>
       {/* 검색 */}
-      <input
-        type={'search'}
-        placeholder="검색"
-        className="input input-bordered w-full max-w-xs"
-        id="search"
-      />
+      <Search />
       {/* 장바구니 */}
       <label tabIndex={0} className="btn btn-ghost btn-circle" id="cart">
         <Link to="/cart" className="indicator">
