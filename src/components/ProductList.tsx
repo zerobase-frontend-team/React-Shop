@@ -10,6 +10,27 @@ interface ProductData {
   image: string;
 }
 
+function SkeletonProduct() {
+  return (
+    <div className="card shadow-xl m-2">
+      <figure className="h-72 bg-white">
+        <img className="w-1/2 h-1/2 animate-pulse bg-slate-400 border-none" />
+      </figure>
+      <div className="card-body h-52">
+        <h2 className="mb-4">
+          <div className="h-6 mb-2 animate-pulse bg-slate-400"></div>
+          <div className="h-6 w-3/4 animate-pulse bg-slate-400"></div>
+        </h2>
+        <div>
+          <div className="h-4 mb-2 animate-pulse bg-slate-400"></div>
+          <div className="h-4 mb-2 animate-pulse bg-slate-400"></div>
+          <div className="h-4 w-3/4 animate-pulse bg-slate-400"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // 하나의 아이템을 나타내는 컴포넌트입니다.
 // 아래의 ProductList의 자식 컴포넌트입니다.
 function Product({ data }: { data: ProductData }) {
@@ -78,13 +99,17 @@ function ProductList({ page, category }: { page: string; category: string }) {
           className="grid sm:w-full sm:grid-cols-2 md:grid-cols-4"
           ref={productContainer}
         >
-          {productData.map((productDatum, index) => {
-            if (page === 'home' && index < 4) {
-              return <Product key={productDatum.id} data={productDatum} />;
-            } else if (page === 'category') {
-              return <Product key={productDatum.id} data={productDatum} />;
-            }
-          })}
+          {productData.length === 0
+            ? Array(4)
+                .fill(0)
+                .map((item, index) => <SkeletonProduct key={index} />)
+            : productData.map((productDatum, index) => {
+                if (page === 'home' && index < 4) {
+                  return <Product key={productDatum.id} data={productDatum} />;
+                } else if (page === 'category') {
+                  return <Product key={productDatum.id} data={productDatum} />;
+                }
+              })}
         </div>
       </div>
     </div>
