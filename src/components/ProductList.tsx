@@ -10,6 +10,8 @@ interface ProductData {
   image: string;
 }
 
+type Category = 'fashion' | 'accessory' | 'digital' | 'all';
+
 function SkeletonProduct() {
   return (
     <div className="card shadow-xl m-2">
@@ -22,9 +24,7 @@ function SkeletonProduct() {
           <div className="h-6 w-3/4 animate-pulse bg-slate-400"></div>
         </h2>
         <div>
-          <div className="h-4 mb-2 animate-pulse bg-slate-400"></div>
-          <div className="h-4 mb-2 animate-pulse bg-slate-400"></div>
-          <div className="h-4 w-3/4 animate-pulse bg-slate-400"></div>
+          <div className="h-4 w-1/4 animate-pulse bg-slate-400"></div>
         </div>
       </div>
     </div>
@@ -54,21 +54,29 @@ function Product({ data }: { data: ProductData }) {
 }
 
 // product list 컴포넌트, export가 되는 컴포넌트입니다.
-function ProductList({ page, category }: { page: string; category: string }) {
+function ProductList({ page, category }: { page: string; category: Category }) {
   const productListComp = useRef<HTMLDivElement>(null);
   const productContainer = useRef<HTMLDivElement>(null);
 
   interface State {
     productStore: {
-      [key: string]: ProductData[];
+      fetchStatus: string;
+      fashion: ProductData[];
+      accessory: ProductData[];
+      digital: ProductData[];
+      all: ProductData[];
     };
   }
 
+  const fetchStatus = useSelector(
+    (state: State) => state.productStore.fetchStatus,
+  );
   const productData = useSelector(
     (state: State) => state.productStore[category],
   );
 
   // 홈페이지와 카테고리 페이지의 css 구분하기
+  // 오류가 날 경우 스타일 변경하기
   useEffect(() => {
     if (page === 'home') {
       productListComp.current?.classList.add('overflow-x-scroll');
@@ -76,13 +84,40 @@ function ProductList({ page, category }: { page: string; category: string }) {
     } else if (page === 'category') {
       productContainer.current?.classList.add('grid-cols-1');
     }
-  }, []);
+
+    if (fetchStatus === 'failed') {
+      productContainer.current?.classList.remove('grid');
+      productContainer.current?.classList.add('text-center');
+    }
+  }, [fetchStatus]);
 
   const categoryTitles: { [key: string]: string } = {
     fashion: '패션',
     accessory: '액세서리',
     digital: '디지털',
   };
+
+  function showProductsByCategory() {
+    switch (fetchStatus) {
+      case 'loading':
+        const ProductLimitCount = 4;
+        return Array(ProductLimitCount)
+          .fill(0)
+          .map((item, index) => <SkeletonProduct key={index} />);
+      case 'failed':
+        return <div>죄송합니다. 현재 상품 정보를 불러올 수 없습니다.</div>;
+      case 'fetched':
+        return productData.map((productDatum, index) => {
+          if (page === 'home' && index < 4) {
+            return <Product key={productDatum.id} data={productDatum} />;
+          } else if (page === 'category') {
+            return <Product key={productDatum.id} data={productDatum} />;
+          }
+        });
+      default:
+        return <div></div>;
+    }
+  }
 
   return (
     <div data-theme="dark">
@@ -99,17 +134,7 @@ function ProductList({ page, category }: { page: string; category: string }) {
           className="grid sm:w-full sm:grid-cols-2 md:grid-cols-4"
           ref={productContainer}
         >
-          {productData.length === 0
-            ? Array(4)
-                .fill(0)
-                .map((item, index) => <SkeletonProduct key={index} />)
-            : productData.map((productDatum, index) => {
-                if (page === 'home' && index < 4) {
-                  return <Product key={productDatum.id} data={productDatum} />;
-                } else if (page === 'category') {
-                  return <Product key={productDatum.id} data={productDatum} />;
-                }
-              })}
+          {showProductsByCategory()}
         </div>
       </div>
     </div>
