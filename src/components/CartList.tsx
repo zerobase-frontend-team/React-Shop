@@ -1,17 +1,30 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { RootState, useAppDispatch, useAppSelector } from '../store';
 import { cartActions } from '../store/cart';
 import CartItems from './CartItems';
 
-function CartList() {
-  const products = useSelector((state: any) => state.productStore.all);
-  const cartItems = useSelector((state: any) => state.cartStore.items);
-  const dispatch = useDispatch();
+interface CartProductID {
+  readonly id: number;
+}
 
-  let items: any = [];
+export interface InCartItems {
+  id: number;
+  price: number;
+  image: string;
+  title: string;
+}
+
+function CartList() {
+  const products = useAppSelector((state: RootState) => state.productStore.all);
+  const cartItems = useAppSelector((state: any) => state.cartStore.items);
+  const dispatch = useAppDispatch();
+
+  let items: InCartItems[] = [];
   let totalPrice = 0;
 
   Object.keys(cartItems).map((id) => {
-    const product = products.find((prod: any) => prod.id == id);
+    const product: any = products.find(
+      (prod: CartProductID) => prod.id === Number(id),
+    );
     items.push(product);
     totalPrice += product.price * cartItems[id].count;
   });
@@ -24,7 +37,7 @@ function CartList() {
     <>
       <div className="lg:flex justify-between mb-20">
         <div>
-          {items.map((item: any) => (
+          {items.map((item: InCartItems) => (
             <CartItems
               image={item.image}
               id={item.id}
