@@ -1,12 +1,13 @@
 import darkThemeButton from '../assets/theme-icon/dark.svg';
 import lightThemeButton from '../assets/theme-icon/light.svg';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Search from './Search';
+import { themeContext } from '../App';
 
 function Header() {
-  const [theme, setTheme] = useState<string>('light');
+  const { theme, setTheme } = useContext(themeContext);
   const dispatch = useDispatch();
 
   function changeTheme(): void {

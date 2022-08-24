@@ -120,7 +120,7 @@ function ProductList({ page, category }: { page: string; category: Category }) {
   }
 
   return (
-    <div data-theme="dark">
+    <div>
       <h1 className="text-center pt-16 mb-8 text-4xl font-bold">
         {categoryTitles[category]}
       </h1>
