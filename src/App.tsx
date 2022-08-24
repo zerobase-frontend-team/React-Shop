@@ -2,72 +2,39 @@ import './App.css';
 import AppRouter from './router/AppRouter';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import productStore from './store/product';
 import { cartActions } from './store/cart';
+import { useAppDispatch } from './store';
+import { fetchProducts } from './store/product';
+import { createContext, useState, useEffect } from 'react';
 
-interface ProductData {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
+interface Theme {
+  theme: string;
+  setTheme: (theme: string) => void;
 }
 
+export const themeContext = createContext<Theme>({
+  theme: '',
+  setTheme: (theme) => {},
+});
+
 function App() {
-  const dispatch = useDispatch();
-
+  // prduct data를 store로 보내기
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    let fashion: ProductData[] = [];
-    let accessory: ProductData[] = [];
-    let digital: ProductData[] = [];
-    let all: ProductData[] = [];
-
-    (async () => {
-      const URL = 'https://fakestoreapi.com/products';
-      const response = await fetch(URL);
-      const products: ProductData[] = await response.json();
-
-      products.forEach((product) => {
-        switch (product.category) {
-          case "men's clothing":
-            fashion.push(product);
-            break;
-          case "women's clothing":
-            fashion.push(product);
-            break;
-          case 'jewelery':
-            accessory.push(product);
-            break;
-          case 'electronics':
-            digital.push(product);
-            break;
-          default:
-            break;
-        }
-
-        all.push(product);
-      });
-
-      dispatch(productStore.actions.fetchFashion({ data: fashion }));
-      dispatch(productStore.actions.fetchAccessory({ data: accessory }));
-      dispatch(productStore.actions.fetchDigital({ data: digital }));
-      dispatch(productStore.actions.fetchAll({ data: all }));
-    })();
+    dispatch(fetchProducts());
   }, []);
 
+  // 라이트모드, 다크모드 관리
+  const [theme, setTheme] = useState<string>('light');
+
   return (
-    <>
-      <Header />
-      <AppRouter />
-      <Footer />
-    </>
+    <themeContext.Provider value={{ theme, setTheme }}>
+      <div data-theme={theme}>
+        <Header />
+        <AppRouter />
+        <Footer />
+      </div>
+    </themeContext.Provider>
   );
 }
 

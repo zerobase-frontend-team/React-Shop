@@ -25,7 +25,6 @@ interface State {
 }
 
 function Product() {
-  const dataTheme = 'dark';
   const params = useParams();
   const id = Number(params.pid);
   const productData = useSelector(
@@ -46,7 +45,7 @@ function Product() {
   };
 
   return (
-    <section className="main" data-theme={dataTheme}>
+    <section className="main">
       <section className="pt-4 lg:pt-5 pb-4 lg:pb-8 px-4 xl:px-2 xl:container mx-auto">
         <StyleWrapper>
           <div className="text-sm breadcrumbs">
