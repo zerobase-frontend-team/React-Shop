@@ -1,10 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../store';
 import { cartActions } from '../store/cart';
+import { InCartItems } from './CartList';
 
-function CartItems(props: any) {
-  const dispatch = useDispatch();
-  const cartItemCount = useSelector(
+function CartItems(props: InCartItems) {
+  const dispatch = useAppDispatch();
+  const cartItemCount = useAppSelector(
     (state: any) => state.cartStore.items[`${props.id}`].count,
   );
 
