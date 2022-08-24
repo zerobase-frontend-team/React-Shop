@@ -33,7 +33,7 @@ function Header() {
   return (
     <nav className="navbar sticky top-0 z-10" data-theme={theme}>
       {/* 축소 시 생기는 버튼, 드랍다운으로 카테고리를 선택할 수 있습니다. */}
-      <div className="dropdown dropdown-end md:hidden" id="category_drop-down">
+      <div className="dropdown md:hidden" id="category_drop-down">
         <label tabIndex={0} className="btn btn-ghost btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
