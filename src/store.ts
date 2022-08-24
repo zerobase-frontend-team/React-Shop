@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import productStore from './store/product';
 import cartSlice from './store/cart';
+import { useDispatch } from 'react-redux';
 
 const store = configureStore({
   reducer: {
@@ -8,5 +9,8 @@ const store = configureStore({
     cartStore: cartSlice,
   },
 });
+
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 export default store;

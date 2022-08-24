@@ -17,6 +17,12 @@ export interface CartItems {
   image: string;
 }
 
+export interface CartAction {
+  payload: {
+    id: number;
+  };
+}
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -24,7 +30,7 @@ const cartSlice = createSlice({
     totalCount: 0,
   },
   reducers: {
-    addCart: (state: any, action: any) => {
+    addCart: (state: any, action: CartAction) => {
       if (state.items[action.payload.id]) {
         state.items[action.payload.id].count++;
       } else {
@@ -35,7 +41,7 @@ const cartSlice = createSlice({
       }
       state.totalCount++;
     },
-    removeCart: (state: any, action: any) => {
+    removeCart: (state: any, action: CartAction) => {
       state.items[action.payload.id].count--;
       state.totalCount--;
       if (state.items[action.payload.id].count === 0)
