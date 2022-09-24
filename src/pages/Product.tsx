@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { cartActions } from '../store/cart';
 
 interface ProductData {
   id: number;
@@ -23,7 +24,6 @@ interface State {
 }
 
 function Product() {
-  const dataTheme = 'dark';
   const params = useParams();
   const id = Number(params.pid);
   const productData =
@@ -37,8 +37,13 @@ function Product() {
   const count = productData.rating.count;
   const price = productData.price;
 
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch(cartActions.addCart({ id: id }));
+  };
+
   return (
-    <section className="main" data-theme={dataTheme}>
+    <section className="main">
       <section className="pt-4 lg:pt-5 pb-4 lg:pb-8 px-4 xl:px-2 xl:container mx-auto">
         <StyleWrapper>
           <div className="text-sm breadcrumbs">
@@ -69,7 +74,9 @@ function Product() {
               </div>
               <p className="mt-2 mb-4 text-3xl">${price}</p>
               <div className="card-actions">
-                <button className="btn btn-primary">장바구니에 담기</button>
+                <button className="btn btn-primary" onClick={addToCart}>
+                  장바구니에 담기
+                </button>
                 <Link className="btn btn-outline ml-1" to={'/cart'}>
                   장바구니로 이동
                 </Link>

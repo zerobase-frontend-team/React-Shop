@@ -19,7 +19,6 @@ function CartList() {
   const buyAll = () => {
     dispatch(cartActions.buy());
   };
-  // console.log(items);
 
   return (
     <>
