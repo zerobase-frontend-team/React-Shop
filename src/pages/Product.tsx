@@ -16,7 +16,6 @@ interface ProductData {
     count: number;
   };
 }
-
 interface State {
   productStore: {
     [key: string]: ProductData[];
@@ -27,11 +26,10 @@ function Product() {
   const dataTheme = 'dark';
   const params = useParams();
   const id = Number(params.pid);
-  const productData = useSelector(
-    (state: any) => state.productStore.all[id - 1],
-  );
+  const productData =
+    useSelector((state: State) => state.productStore.all[id - 1]) || [];
 
-  const category = getCategory(productData.category);
+  const category = getCategory(productData?.category);
   const title = productData.title;
   const description = productData.description;
   const image = productData.image;
