@@ -30,12 +30,10 @@ function Product() {
     useSelector((state: State) => state.productStore.all[id - 1]) || [];
 
   const category = getCategory(productData?.category);
+
   const title = productData.title;
-  const description = productData.description;
-  const image = productData.image;
-  const rate = productData.rating.rate;
-  const count = productData.rating.count;
-  const price = productData.price;
+  const { description, image, rating, price } = productData;
+  const { rate, count } = rating;
 
   const dispatch = useDispatch();
   const addToCart = () => {
