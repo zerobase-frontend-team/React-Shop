@@ -15,10 +15,16 @@ interface ProductData {
   };
 }
 
+interface State {
+  productStore: {
+    [key: string]: ProductData[];
+  };
+}
+
 function Search() {
   const [searchArray, setSearchArray] = useState<ProductData[]>([]);
   const [isSearch, setIsSearch] = useState(false);
-  const productData = useSelector((state: any) => state.productStore.all);
+  const productData = useSelector((state: State) => state.productStore.all);
   const [theme, setTheme] = useState<string>('light');
   const searchBarWhenNarrow = useRef<HTMLInputElement>(null);
 
@@ -70,6 +76,7 @@ function Search() {
         </svg>
       </button>
       <input
+        autoComplete="off"
         onChange={onChangeHandler}
         onFocus={onFocusHandler}
         onBlur={onBlurHandler}
@@ -91,7 +98,6 @@ function Search() {
       {isSearch && (
         <ul
           data-theme={theme}
-          tabIndex={0}
           className="menu dropdown-content p-2 shadow bg-base-100 w-52 mt-4 !fixed right-20 sm:!absolute sm:top-14 menu dropdown-content w-full sm:w-64 max-h-96 shadow text-base-content overflow-y-auto bg-white dark:bg-gray-600"
         >
           {searchArray.map((el) => (

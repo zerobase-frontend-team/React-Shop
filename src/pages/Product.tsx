@@ -17,7 +17,6 @@ interface ProductData {
     count: number;
   };
 }
-
 interface State {
   productStore: {
     [key: string]: ProductData[];
@@ -27,17 +26,14 @@ interface State {
 function Product() {
   const params = useParams();
   const id = Number(params.pid);
-  const productData = useSelector(
-    (state: any) => state.productStore.all[id - 1],
-  );
+  const productData =
+    useSelector((state: State) => state.productStore.all[id - 1]) || [];
 
-  const category = getCategory(productData.category);
+  const category = getCategory(productData?.category);
+
   const title = productData.title;
-  const description = productData.description;
-  const image = productData.image;
-  const rate = productData.rating.rate;
-  const count = productData.rating.count;
-  const price = productData.price;
+  const { description, image, rating, price } = productData;
+  const { rate, count } = rating;
 
   const dispatch = useDispatch();
   const addToCart = () => {
